@@ -12,7 +12,7 @@ export const sendMessage = (iframe: HTMLIFrameElement, msg: XMessage) => {
 }
 
 export const initIframe = (parent: HTMLDivElement, onLoad: (iframe: HTMLIFrameElement) => void) => {
-    var iframe = document.createElement('iframe');
+    const iframe = document.createElement('iframe');
 
     iframe.classList.add('frame');
     iframe.src = 'frame.html';
@@ -33,10 +33,11 @@ export const initProgress = (parent: HTMLDivElement) => {
     container.appendChild(progress);
 
     parent.appendChild(container);
-    
+
     return progress;
 }
 
 export const setElementTheme = (elem: HTMLElement, theme: SlideTheme) => {
+    elem.className = '';
     elem.classList.add(`theme_${theme}`);
 }

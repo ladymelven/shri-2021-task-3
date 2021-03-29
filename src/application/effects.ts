@@ -8,19 +8,19 @@ export function ofType<T extends Action>(type: Action['type']): MonoTypeOperator
 }
 
 export function createEffects(
-    actions$: Observable<Action>, 
-    state$: Observable<State>, 
+    actions$: Observable<Action>,
+    state$: Observable<State>,
 ): Observable<Action> {
     const timerEffect$ = interval(INTERVAL).pipe(
         mapTo(actionTimer())
     );
-    
+
     const changeSlideEffect$ = timerEffect$.pipe(
         withLatestFrom(state$),
         mergeMap(([a, s]) => s.progress >= DELAY ? of(actionNext()) : EMPTY),
         take(5),
     );
-    
+
     const messageEffect$ = actions$.pipe(
         ofType<ReturnType<typeof actionMessage>>('message'),
         mergeMap(a => {
@@ -39,6 +39,6 @@ export function createEffects(
             }
         })
     )
-    
+
     return merge(timerEffect$, changeSlideEffect$, messageEffect$);
 }

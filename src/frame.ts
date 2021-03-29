@@ -2,8 +2,8 @@ import { messageAction, XMessage } from './messages';
 import { setElementTheme } from './application/view';
 import './frame.css';
 
-interface ExtendedWindow extends Window { 
-    renderTemplate: (alias: string, data: object) => string 
+interface ExtendedWindow extends Window {
+    renderTemplate: (alias: string, data: object) => string
 }
 
 declare var window: ExtendedWindow;
@@ -14,7 +14,7 @@ function ready() {
 
 function sendMessage(msg: XMessage) {
     window.postMessage(msg, '*');
-} 
+}
 
 function receiveMessage({ data }: MessageEvent<XMessage>) {
     if (data.type === 'message@UPDATE') {
